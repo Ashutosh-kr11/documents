@@ -1,12 +1,37 @@
 # Standard Operating Procedure (SOP)
 ## Title: Disk Usage & Ulimit Configuration on Ubuntu OS
 
-### SOP Number:
+### SOP Info:
 **Version:** 1.0  
 **Date:** 2025-07-16  
-**Prepared By:** DevOps Team  
+**Prepared By:** Cloud-Ops-Crew  
 **Reviewed By:** []  
 **Approval:** []  
+
+---
+
+## Table of Contents
+
+1. [Purpose](#1-purpose)
+2. [Scope](#2-scope)
+3. [Prerequisites](#3-prerequisites)
+4. [Procedure](#4-procedure)  
+   4.1. [Check Disk Usage](#41-check-disk-usage)  
+   &nbsp;&nbsp;&nbsp;4.1.1. [List All Mounted Filesystems & Usage](#411-list-all-mounted-filesystems--usage)  
+   &nbsp;&nbsp;&nbsp;4.1.2. [Identify Top Disk Consumers](#412-identify-top-disk-consumers)  
+   &nbsp;&nbsp;&nbsp;4.1.3. [Check Inode Usage](#413-check-inode-usage)  
+   4.2. [Check and Manage Mount Points](#42-check-and-manage-mount-points)  
+   &nbsp;&nbsp;&nbsp;4.2.1. [List Active Mounts](#421-list-active-mounts)  
+   &nbsp;&nbsp;&nbsp;4.2.2. [Verify `/etc/fstab` for Persistent Mounts](#422-verify-etcfstab-for-persistent-mounts)  
+   &nbsp;&nbsp;&nbsp;4.2.3. [Mount/Unmount Filesystems (if necessary)](#423-mountunmount-filesystems-if-necessary)  
+   4.3. [Configure Ulimit Settings](#43-configure-ulimit-settings)  
+   &nbsp;&nbsp;&nbsp;4.3.1. [Check Current Ulimit Values](#431-check-current-ulimit-values)  
+   &nbsp;&nbsp;&nbsp;4.3.2. [Set Temporary Ulimit for Current Session](#432-set-temporary-ulimit-for-current-session)  
+   &nbsp;&nbsp;&nbsp;4.3.3. [Configure Persistent Ulimits for Users](#433-configure-persistent-ulimits-for-users)  
+   &nbsp;&nbsp;&nbsp;4.3.4. [Verify Effective Limits for a User/Process](#434-verify-effective-limits-for-a-userprocess)  
+5. [Troubleshooting](#5-troubleshooting)
+6. [References](#6-references)
+7. [Revision History](#7-revision-history)
 
 ---
 
@@ -29,11 +54,11 @@ Applicable to all Ubuntu servers.
 
 ---
 
-## 5. Procedure
+## 4. Procedure
 
-### 5.1 Check Disk Usage
+### 4.1 Check Disk Usage
 
-#### 5.1.1 List All Mounted Filesystems & Usage
+#### 4.1.1 List All Mounted Filesystems & Usage
 ```bash
 df -hT
 ```
@@ -49,7 +74,7 @@ du -sh /path/to/directory
 ```
 <img width="691" height="81" alt="Image" src="https://github.com/user-attachments/assets/c154c2de-09a7-4df7-a557-806334e8d56d" />
 
-#### 5.1.2 Identify Top Disk Consumers
+#### 4.1.2 Identify Top Disk Consumers
 ```bash
 sudo du -ahx / | sort -rh | head -n 20
 ```
@@ -58,7 +83,7 @@ sudo du -ahx / | sort -rh | head -n 20
 
 <img width="1001" height="602" alt="Image" src="https://github.com/user-attachments/assets/fa8b8740-c5ca-4151-9eae-08f4f503d92c" />
 
-#### 5.1.3 Check Inode Usage
+#### 4.1.3 Check Inode Usage
 ```bash
 df -i
 ```
@@ -68,9 +93,9 @@ df -i
 
 ---
 
-### 5.2 Check and Manage Mount Points
+### 4.2 Check and Manage Mount Points
 
-#### 5.2.1 List Active Mounts
+#### 4.2.1 List Active Mounts
 ```bash
 mount | column -t
 ```
@@ -84,7 +109,7 @@ lsblk -f
 
 - **Purpose:** Shows device, mount point, and filesystem type.
 
-#### 5.2.2 Verify `/etc/fstab` for Persistent Mounts
+#### 4.2.2 Verify `/etc/fstab` for Persistent Mounts
 ```bash
 cat /etc/fstab
 ```
@@ -92,21 +117,58 @@ cat /etc/fstab
 
 <img width="976" height="306" alt="Image" src="https://github.com/user-attachments/assets/acb8611e-bf40-4670-a973-62263701f246" />
 
-#### 5.2.3 Mount/Unmount Filesystems (if necessary)
+#### 4.2.3 Mount/Unmount Filesystems (if necessary)
+- **Detect the New Disk in Ubuntu**
+  ```bash
+  lsblk
+  ```
+  <img width="988" height="572" alt="Image" src="https://github.com/user-attachments/assets/51d89320-be3f-434b-9dc7-f9180f284085" />
+
+- **Partition the New Disk**
+  ```bash
+  sudo fdisk /dev/sdb
+  ```
+  Inside fdisk, do the following:
+    - Press n → new partition
+    - Press p → primary
+    - Press 1 → partition number
+    - Press Enter (accept defaults for first/last sector)
+    - Press w → write changes
+- **Now check**
+  ```bash
+  lsblk
+  ```
+  <img width="963" height="602" alt="Image" src="https://github.com/user-attachments/assets/3e06c7ef-f407-4c2b-8aac-31c7052ad339" />
+
+- **Format the Partition**
+  ```bash
+  sudo mkfs.ext4 /dev/sdb1
+  ```
+  <img width="992" height="311" alt="Image" src="https://github.com/user-attachments/assets/39814ebe-ad54-461c-85b8-7fc1f7c082ba" />
+  This creates an ext4 file system on the partition.
+
+- **Create Mount Point**
+  ```bash
+  sudo mkdir -p /mnt/mydisk
+  ```
 - **To mount:**
   ```bash
   sudo mount /dev/sdXn /mount/point 
   ```
+  <img width="1842" height="767" alt="Image" src="https://github.com/user-attachments/assets/bde1ee55-69c2-46a1-b885-1f92d6f81998" />
+
+  
 - **To unmount:**
   ```bash
   sudo umount /mount/point
   ```
+  <img width="1818" height="636" alt="Image" src="https://github.com/user-attachments/assets/ddd1183b-db8a-4eb4-8d26-46a7ba88fd9a" />
 
 ---
 
-### 5.3 Configure Ulimit Settings
+### 4.3 Configure Ulimit Settings
 
-#### 5.3.1 Check Current Ulimit Values
+#### 4.3.1 Check Current Ulimit Values
 - For the current shell:
   ```bash
   ulimit -a
@@ -121,7 +183,7 @@ cat /etc/fstab
   <img width="488" height="47" alt="Image" src="https://github.com/user-attachments/assets/5e107865-7701-4b7f-82ff-32bc09a2164c" />
 
 
-#### 5.3.2 Set Temporary Ulimit for Current Session
+#### 4.3.2 Set Temporary Ulimit for Current Session
 ```bash
 ulimit -n 4096
 ```
@@ -129,7 +191,7 @@ ulimit -n 4096
 
 - **Note:** This change lasts only for the current shell session.
 
-#### 5.3.3 Configure Persistent Ulimits for Users
+#### 4.3.3 Configure Persistent Ulimits for Users
 
 **Edit `/etc/security/limits.conf`:**
 ```bash
@@ -161,7 +223,7 @@ sudo nano /etc/security/limits.conf
   sudo systemctl restart <service-name>
   ```
 
-#### 5.3.4 Verify Effective Limits for a User/Process
+#### 4.3.4 Verify Effective Limits for a User/Process
 - After login or restart:
   ```bash
   ulimit -a
@@ -173,7 +235,7 @@ sudo nano /etc/security/limits.conf
 
 ---
 
-## 6. Troubleshooting
+## 5. Troubleshooting
 
 | Issue                      | Possible Cause                | Solution                                      |
 |----------------------------|-------------------------------|-----------------------------------------------|
@@ -183,7 +245,7 @@ sudo nano /etc/security/limits.conf
 
 ---
 
-## 7. References
+## 6. References
 
 - [Ubuntu Server Guide: Disk Management](https://help.ubuntu.com/lts/serverguide/filesystems.html)
 - [Ubuntu: Limits.conf Documentation](https://manpages.ubuntu.com/manpages/focal/en/man5/limits.conf.5.html)
@@ -191,11 +253,11 @@ sudo nano /etc/security/limits.conf
 
 ---
 
-## 8. Revision History
+## 7. Revision History
 
 | Version | Date       | Author        | Change Description       |
 |---------|------------|---------------|-------------------------|
-| 1.0     | 2025-07-16 | DevOps Team   | Initial version         |
+| 1.0     | 2025-07-16 | Ashutosh Kr.   | Initial version         |
 
 ---
 
