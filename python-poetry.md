@@ -199,13 +199,13 @@ venv is a Python standard library module for creating lightweight, isolated Pyth
   ```bash
   python -m venv env
   ```
-- **Activating the environment (Linux/macOS):**
+- **Activating the environment:**
   ```bash
   source env/bin/activate
   ```
-- **Activating the environment (Windows):**
+- **Deactivating the environment:**
   ```bash
-  env\Scripts\activate
+  deactivate
   ```
 - **Association:**  
   venv creates the context for an isolated Python environment. Tools like pip and Poetry can then be used inside this environment to install dependencies and manage packages without affecting system-wide Python or other projects.
@@ -284,7 +284,7 @@ A: In `pyproject.toml` for Poetry, and in `requirements.txt` for pip.
 
 ---
 
-## Contact Information
+## Author Information
 
 | Name               | Email Address         |
 |--------------------|----------------------|
