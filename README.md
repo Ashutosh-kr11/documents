@@ -1,4 +1,4 @@
-## Title: Disk Usage & Ulimit Configuration on Ubuntu OS
+# Title: Disk Usage & Ulimit Configuration on Ubuntu OS
 
 ### SOP Info:
 **Version:** 1.0  
