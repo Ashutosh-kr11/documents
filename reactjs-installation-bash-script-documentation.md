@@ -18,13 +18,14 @@
     - [Generic Bash Script](#generic-bash-script)
     - [Script Parameters](#script-parameters)
     - [Supported Scenarios](#supported-scenarios)
-    - [Sample Script](#sample-script)
-6. [Upgrade and Version Management](#upgrade-and-version-management)
-7. [Troubleshooting](#troubleshooting)
-8. [Best Practices](#best-practices)
-9. [FAQ](#faq)
-10. [References](#references)
-11. [Contact Information](#contact-information)
+    - [Installation Script](#installation-script)
+6. [How to Use the Installation Script](#how-to-use-the-installation-script)
+7. [Upgrade and Version Management](#upgrade-and-version-management)
+8. [Troubleshooting](#troubleshooting)
+9. [Best Practices](#best-practices)
+10. [FAQ](#faq)
+11. [References](#references)
+12. [Contact Information](#contact-information)
 
 ---
 
@@ -91,7 +92,7 @@ A robust, reusable Bash script can manage the installation, upgrade, or downgrad
 
 ---
 
-### Sample Script
+### Installation Script
 
 ```bash
 #!/bin/bash
@@ -158,6 +159,34 @@ fi
 
 echo "React@$REACT_VERSION installation complete in $PROJECT_DIR"
 ```
+
+---
+## How to Use the Installation Script
+
+### Step 1: Save and Make Executable
+```bash
+curl -O https://example.com/reactjs_install.sh  # or copy-paste and save
+chmod +x reactjs_install.sh
+```
+### Step 2: Run the Script
+- For the latest React version:
+```bash
+sudo bash ./reactjs_install.sh -v 18.2.0
+```
+- For a specific version in a specific directory:
+```bash
+sudo bash ./reactjs_install.sh -v 17.0.2 -d /home/user/my-react-app
+```
+- Get help:
+```bash
+bash ./reactjs_install.sh -h
+```
+### Step 3: Verify Installation
+In your project directory, check:
+```bash
+npm list react --depth=0
+```
+You should see the specified React version installed.
 
 ---
 
