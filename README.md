@@ -1,4 +1,3 @@
-# Standard Operating Procedure (SOP)
 ## Title: Disk Usage & Ulimit Configuration on Ubuntu OS
 
 ### SOP Info:
