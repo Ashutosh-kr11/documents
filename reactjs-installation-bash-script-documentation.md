@@ -165,7 +165,7 @@ echo "React@$REACT_VERSION installation complete in $PROJECT_DIR"
 
 ### Step 1: Save and Make Executable
 ```bash
-curl -O https://github.com/Ashutosh-kr11/documents/blob/main/reactjs_install.sh  # or copy-paste and save
+curl -O https://raw.githubusercontent.com/Ashutosh-kr11/documents/refs/heads/main/reactjs_install.sh  # or copy-paste and save
 chmod +x reactjs_install.sh
 ```
 ### Step 2: Run the Script
