@@ -92,7 +92,7 @@ A robust, reusable Bash script can manage the installation, upgrade, or downgrad
 
 ---
 
-### Installation Script
+### [Installation Script](https://github.com/Ashutosh-kr11/documents/blob/main/reactjs_install.sh)
 
 ```bash
 #!/bin/bash
@@ -165,7 +165,7 @@ echo "React@$REACT_VERSION installation complete in $PROJECT_DIR"
 
 ### Step 1: Save and Make Executable
 ```bash
-curl -O https://example.com/reactjs_install.sh  # or copy-paste and save
+curl -O https://github.com/Ashutosh-kr11/documents/blob/main/reactjs_install.sh  # or copy-paste and save
 chmod +x reactjs_install.sh
 ```
 ### Step 2: Run the Script
