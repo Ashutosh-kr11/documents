@@ -1,11 +1,10 @@
 # Title: Disk Usage & Ulimit Configuration on Ubuntu OS
 
-### SOP Info:
-**Version:** 1.0  
-**Date:** 2025-07-16  
-**Prepared By:** Cloud-Ops-Crew  
-**Reviewed By:** []  
-**Approval:** []  
+---
+
+| Created By      | Created on   | Version | Last updated by   | Pre Reviewer   | L0 Reviewer | L1 Reviewer | L2 Reviewer |
+|-----------------|--------------|---------|-------------------|----------------|-------------|-------------|-------------|
+| Ashutosh Kumar  | 2025-07-19   | 1.0     | Ashutosh Kumar    |                |             |             |             |
 
 ---
 
