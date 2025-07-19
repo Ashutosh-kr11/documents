@@ -14,8 +14,9 @@
 2. [Why Use Ansible Roles?](#why-use-ansible-roles)
 3. [What is an Ansible Role?](#what-is-an-ansible-role)
 4. [Key Features of Ansible Roles](#key-features-of-ansible-roles)
-5. [References](#references)
-6. [Contact Information](#contact-information)
+5. [Best Practices for Roles](#best-practices-for-roles)
+6. [References](#references)
+7. [Contact Information](#contact-information)
 
 ---
 
@@ -69,6 +70,19 @@ roles/
 - **Standardized Structure**: Adopts a fixed directory layout, making it easy to understand and extend.
 - **Variable Management**: Supports default and override mechanisms for variables.
 - **Dependency Handling**: Roles can specify dependencies on other roles for complex automation scenarios.
+
+---
+
+## Best Practices for Roles
+
+- **One Purpose per Role:** Each role should be responsible for a clearly defined function.
+- **Use Defaults for Configuration:** Place default values in `defaults/main.yml` and override them as needed.
+- **Keep Roles Idempotent:** Ensure tasks can run multiple times without causing issues.
+- **Document Roles:** Always include a `README.md` to explain the role’s purpose, variables, and usage.
+- **Use Handlers for Changes:** Trigger handlers only when changes occur.
+- **Leverage Role Dependencies:** Use the `meta/main.yml` to define dependencies on other roles.
+- **Maintain Simplicity:** Avoid overly complex logic inside roles; break into smaller roles if needed.
+- **Follow Official Structure:** Adhere to the standard directory structure for compatibility and clarity.
 
 ---
 
